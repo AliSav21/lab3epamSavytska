@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools { nodejs "Node 7.8.0" }
+    tools { nodejs "NodeJS_7.8.0" }
     environment {
         BRANCH_NAME = "${env.BRANCH_NAME}"
         IMAGE_TAG = 'v1.0'
