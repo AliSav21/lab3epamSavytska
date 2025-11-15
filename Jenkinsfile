@@ -15,7 +15,7 @@ pipeline {
             steps { sh 'npm install' }
         }
         stage('Test') {
-            steps { sh './scripts/test.sh' } // Використовуйте ваш тестовий скрипт
+            steps { sh './scripts/test.sh' }
         }
         stage('Build Docker Image') {
             steps { sh "docker build -t $$ {IMAGE_NAME}: $${IMAGE_TAG} ." }
