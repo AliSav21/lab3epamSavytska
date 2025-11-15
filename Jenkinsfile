@@ -24,14 +24,17 @@ pipeline {
             steps { sh './scripts/test.sh' }
         }
         stage('Build Docker Image') {
-            steps { sh "docker build -t $$ {IMAGE_NAME}: $${IMAGE_TAG} ." }
+            steps { 
+                   sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ." 
+            }
         }
         stage('Deploy') {
             steps {
                 sh """
                     docker ps -q --filter "name=${IMAGE_NAME}" | xargs -r docker stop
                     docker ps -aq --filter "name=${IMAGE_NAME}" | xargs -r docker rm
-                    docker run -d --name ${IMAGE_NAME} --expose ${PORT} -p ${PORT}:3000 $$ {IMAGE_NAME}: $${IMAGE_TAG}
+                    
+                    docker run -d --name ${IMAGE_NAME} --expose ${PORT} -p ${PORT}:3000 ${IMAGE_NAME}:${IMAGE_TAG}
                 """
             }
         }
